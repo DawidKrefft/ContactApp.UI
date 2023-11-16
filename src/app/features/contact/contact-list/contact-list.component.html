@@ -1,0 +1,59 @@
+<div class="container">
+  <h1 class="mt-3 text-center">Contact List</h1>
+  <div class="d-flex justify-content-end mt-3">
+    <a *ngIf="user" [routerLink]="['/admin/contacts/add']" class="btn btn-primary">Add Contact</a>
+  </div>
+
+  <ng-container *ngIf="contacts$ | async as paginatedResult">
+
+    <!-- Pagination Controls -->
+    <div class="d-flex justify-content-center my-3">
+      <button (click)="loadContacts(1)" class="btn btn-primary" type="button" [disabled]="paginatedResult?.page === 1">
+        First Page
+      </button>
+      <button (click)="loadContacts(paginatedResult.page - 1)" class="btn btn-primary" type="button"
+        [disabled]="paginatedResult.page === 1">
+        Previous Page
+      </button>
+      <button (click)="loadContacts(paginatedResult.page + 1)" class="btn btn-primary" type="button"
+        [disabled]="paginatedResult.page === paginatedResult.totalPages">
+        Next Page
+      </button>
+      <button (click)="loadContacts(paginatedResult.totalPages)" class="btn btn-primary" type="button"
+        [disabled]="paginatedResult.page === paginatedResult.totalPages">
+        Last Page
+      </button>
+      <span class="bg-info-subtle align-self-center mx-2">
+        Page {{paginatedResult.page}} of {{paginatedResult.totalPages}}
+      </span>
+    </div>
+
+
+    <table class="table table-bordered mt-3 w-auto mx-auto text-center">
+      <thead>
+        <tr>
+          <th class="col-1">Id</th>
+          <th class="col-10 w-25">First Name</th>
+          <th class="col-10 w-25">Last Name</th>
+          <th class="col-10 w-25">Phone Number</th>
+          <th *ngIf="user" class="col-1">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contact of paginatedResult.items">
+          <td>{{contact.id}}</td>
+          <td>{{contact.firstName}}</td>
+          <td>{{contact.lastName}}</td>
+          <td>{{contact.phoneNumber}}</td>
+          <td *ngIf="user">
+            <a class="btn btn-light" (click)="openDetailsModal(contact.id)">Details</a>
+            <a class="btn btn-light" [routerLink]="['/admin/contacts', contact.id]">Edit</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <app-contact-details [contact]="selectedContact" [nameOfContactCategory]="nameOfContactCategory"
+      [nameOfContactSubcategory]="nameOfContactSubcategory"
+      (closeModalEvent)="closeDetailsModal()"></app-contact-details>
+  </ng-container>
+</div>

@@ -1,0 +1,28 @@
+<!-- contact-details-modal.component.html -->
+<div class="overlay" *ngIf="contact">
+  <div class="custom-modal" *ngIf="contact">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ contact.firstName }} {{ contact.lastName }} Details</h5>
+        <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Id:</strong> {{ contact.id }}</p>
+        <p><strong>First Name:</strong> {{ contact.firstName }}</p>
+        <p><strong>Last Name:</strong> {{ contact.lastName }}</p>
+        <p><strong>Email:</strong> {{ contact.email }}</p>
+        <p><strong>Password:</strong> {{ contact.password }}</p>
+        <p><strong>Phone Number:</strong> {{ contact.phoneNumber }}</p>
+        <p><strong>Date of Birth:</strong> {{ contact.dateOfBirth | date: 'mediumDate'}}</p>
+        <p><strong>CategoryId:</strong> {{ nameOfContactCategory }}</p>
+        <p><strong>SubcategoryId:</strong> {{ nameOfContactSubcategory }}</p>
+        <!-- Add more details here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
