@@ -29,7 +29,7 @@ export class ContactService {
   }
 
   createContact(request: AddContactRequest): Observable<Contact> {
-    const url = `${this.baseUrl}/api/contacts`;
+    const url = `${this.baseUrl}/api/contacts?addAuth=true`;
     return this.http.post<Contact>(url, request);
   }
 
@@ -37,12 +37,12 @@ export class ContactService {
     id: number,
     request: UpdateContactRequest
   ): Observable<Contact> {
-    const url = `${this.baseUrl}/api/contacts/${id}`;
+    const url = `${this.baseUrl}/api/contacts/${id}?addAuth=true`;
     return this.http.put<Contact>(url, request);
   }
 
   deleteContact(id: number): Observable<void> {
-    const url = `${this.baseUrl}/api/contacts/${id}`;
+    const url = `${this.baseUrl}/api/contacts/${id}?addAuth=true`;
     return this.http.delete<void>(url);
   }
 }
